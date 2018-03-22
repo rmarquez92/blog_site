@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Medium-style editor from yabwe's GitHub -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Montserrat" rel="stylesheet">
+
+  </head>
+  <body class='loader'>
+    <nav class="navbar navbar-expand-md bg-light navbar-light techfont custom-navbar">
+      <div class="container">
+        <ul class="navbar-nav mr-auto align-items-center">
+          <li class="nav-item"><a class='navbar-brand bigbrand nav-link' href="{% url 'post_list' %}">My blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a><li>
+          <li class="nav-item"><a class="nav-link" href="https://www.github.com">GitHub</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://linkedin.com">LinkedIn</a></li>
+        </ul>
+
+        <ul class='navbar-nav navbar-right align-items-center'>
+          {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'post_new' %}">New Post</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'post_draft_list' %}">Drafts</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+          <li class="nav-item"><a class="nav-link">Welcome, {{user.username}}</a></li>
+            {% else %}
+            <li class="nav-item"><a class='nav navbar-right nav-link' href="{%url 'login' %}"><i class="fas fa-user-circle"></i></a></li>
+          {% endif %}
+        </ul>
+
+      </div>
+
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="content container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_posts">
+            {% block content %}
+            {% endblock %}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
